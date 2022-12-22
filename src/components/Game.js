@@ -1,93 +1,60 @@
-import { useState, useEffect } from "react"
 import { connect } from 'react-redux'
-import { SetPlayer } from "../redux/Action";
+import { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase } from "../redux/Action";
 
 const Game = (props) => {
 
-  const { SetPlayer, playersArray } = props
+   const { SetPlayer, playersArray, bulletPlayer, assignBullet, assignOrder, turnOrder, currentPlayer, nextPlayer, message, nextPhase } = props
+   
+   let numberOfPlayer = 3
 
-   const [currentPlayer, setCurrentPlayer] = useState('player 1')
-   const playerArry  = [];
-   let bulletPlayer = ''
-   let numberOfPlayer = 6
-   let playerObject = {}
-   let playerOrder = {
-    1: 'player 1',
-    2: 'player 2',
-    3: 'player 3',
-   }
-
-   const assignBullet = (players) => {
-    let number = (Math.random() * 100) 
-    let matchingObj = {}
-    let addCount = Math.round(100/players) - 1
-    let currentCount = Math.round(100/players)
-    let numberArr = [];
-    
-    for(let i = 1; i <= players; i++){
-      if(i === 1){
-        numberArr.push(0, currentCount)
-        matchingObj = {0: `player ${i}`, [currentCount]: `player ${i}`}
-      }else{
-        matchingObj = {...matchingObj, [currentCount]: `player ${i}`,
-    [currentCount = currentCount + addCount]: `player ${i}`}
-        numberArr.push(currentCount)
+      if(turnOrder[currentPlayer] === 'Next Phase'){
+            nextPhase()
       }
-      currentCount++
-      numberArr.push(currentCount)
-    }
-   
- let closest = numberArr.reduce(function(prev, curr) {
-  return (Math.abs(curr - number) < Math.abs(prev - number) ? curr : prev);
-});
 
-  bulletPlayer = matchingObj[closest]
-    }
-
-   
-   
-    const setUp = (numberOfPlayer) =>{
-  
+    const setUp = (numberOfPlayer) => {
     for(let i = 1; i <= numberOfPlayer; i++){
-      let name = `player ${i}`
-      let cards = ['test 1', 'test 2', 'test 3', 'test 4', 'test 5']
-      playerObject = { id: i, playerName: name, cards: cards }   
-      SetPlayer(playerObject)
+        let name = `player ${i}`
+        let cards = ['test 1', 'test 2', 'test 3', 'test 4', 'test 5']
+        let player = { id: i, playerName: name, cards: cards }   
+          SetPlayer(player)
+      }
+       assignBullet(numberOfPlayer)
+       assignOrder(numberOfPlayer)
     }
-  
-  }
 
-
-     
-    
-    
      return(
-      <div className="bg-white min-h-screen">
-           <div className="">
-           {playerArry.map(player =>{
-             return (<div key={player.playerName} className="flex flex-col text-center items-center p-3">
-                <h1>{player.playerName}</h1>
-                   <div className="flex">
-                    <div>{currentPlayer === player.playerName ? 'current player' : ''}</div>
-                    <div className="flex">{player.cards.map(card =>{
+      <div>
+           <h1>{message}</h1>
+           <div className="player">
+             {playersArray.map(player =>{
+               return (<div key={player.id}>
+                <h3>{player.playerName}</h3>
+                   <div className="players-hand">
+                    <div>{turnOrder[currentPlayer] === player.playerName ? 'current player' : ''}</div>
+                    <div className="main-cards">{player.cards.map((card, index) => {
                        return(
-                         <div key={card} className='p-2'>
+                         <button key={index} className='card' onClick={() => nextPlayer()} disabled={turnOrder[currentPlayer] === player.playerName ? false : true}>
                          <p>{card}</p>
-                         </div>)
+                         </button>)
                     })}</div>
-                <div className="ml-2 border-2 w-12 text-white hover:text-black">{bulletPlayer === player.playerName ? 'Bullet' : 'Nope'}</div>
+                <div className="bullet-card">{bulletPlayer === player.playerName ? 'Bullet' : 'Nope'}</div>
                 </div>
              </div>)
            })}
         </div>
+        <button onClick={() =>setUp(numberOfPlayer)}>Start</button>
       </div>
     )
 }
 
 const mapStateToProps = state => {
     return{
-        playersArray: state.playersArray
+        playersArray: state.playersArray,
+        bulletPlayer: state.bulletPlayer,
+        turnOrder: state.turnOrder,
+        currentPlayer: state.currentPlayer,
+        message: state.message
     }
 }
 
-export default connect(mapStateToProps, {SetPlayer})(Game)
+export default connect(mapStateToProps, { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase })(Game)

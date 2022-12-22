@@ -7,6 +7,33 @@
   pointer-events: none;
 }
 
+.players-hand{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.main-cards{
+  display: flex;
+  padding: 1%;
+}
+
+.card{
+  margin-left: 1%;
+}
+
+.bullet-card{
+  color: white;
+  border-style: solid;
+  border-color: black;
+  height: 15%;
+  padding: 0.3%;
+}
+
+.bullet-card:hover{
+  color: black;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

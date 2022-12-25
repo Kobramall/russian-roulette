@@ -1,11 +1,12 @@
-import { SET_PLAYER, ASSIGN_BULLET, ASSIGN_ORDER, NEXT_PLAYER, NEXT_PHASE } from './Action'
+import { SET_PLAYER, ASSIGN_BULLET, ASSIGN_ORDER, NEXT_PLAYER, NEXT_PHASE, ACTION_CARD } from './Action'
 
 const initialState = {
     message: 'Phase 1',
     playersArray: [],
     bulletPlayer:'',
     turnOrder:{},
-    currentPlayer: 0
+    currentPlayer: 0,
+    actionCardPlayed: ''
 }
 
 
@@ -25,6 +26,12 @@ export const reducer = (state = initialState, action) => {
 
                 case NEXT_PHASE:
                 return {...state, currentPlayer: 0, message: 'Phase 2'}
+        case ACTION_CARD: 
+           if(action.payload === 'Mix cards'){
+                return {...state, actionCardPlayed: 'This one worked'}
+            }else if(action.payload === 'shuffle cards'){
+            return {...state, actionCardPlayed: 'This one worked also'}
+            }break
               
         default :
                 return state;

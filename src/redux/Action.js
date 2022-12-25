@@ -3,6 +3,7 @@ export const ASSIGN_BULLET = 'ASSIGN_BULLET'
 export const ASSIGN_ORDER = 'ASSIGN_ORDER'
 export const NEXT_PLAYER = 'NEXT_PLAYER'
 export const NEXT_PHASE = 'NEXT_PHASE'
+export const ACTION_CARD = 'ACTION_CARD'
 
 export const SetPlayer = (player) => {
     return {type: SET_PLAYER, payload: player } 
@@ -47,14 +48,12 @@ export const assignBullet = (players) => {
         function shuffle(array) {
         let currentIndex = array.length,  randomIndex;
       
-        // While there remain elements to shuffle.
+      
         while (currentIndex !== 0) {
       
-          // Pick a remaining element.
           randomIndex = Math.floor(Math.random() * currentIndex);
           currentIndex--;
       
-          // And swap it with the current element.
           [array[currentIndex], array[randomIndex]] = [
             array[randomIndex], array[currentIndex]];
         }
@@ -81,4 +80,8 @@ export const assignBullet = (players) => {
 
       export const nextPhase = () => {
             return {type: NEXT_PHASE} 
+      }
+
+      export const actionCard = (str) => {
+        return {type: ACTION_CARD, payload: str}
       }

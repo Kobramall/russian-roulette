@@ -1,26 +1,40 @@
 import { connect } from 'react-redux'
-import { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase } from "../redux/Action";
+import { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase, actionCard } from "../redux/Action";
+
 
 const Game = (props) => {
 
-   const { SetPlayer, playersArray, bulletPlayer, assignBullet, assignOrder, turnOrder, currentPlayer, nextPlayer, message, nextPhase } = props
+   const { SetPlayer, playersArray, bulletPlayer, assignBullet, assignOrder, turnOrder, currentPlayer, nextPlayer, message, nextPhase, actionCard } = props
    
-   let numberOfPlayer = 3
+   let numberOfPlayer = 5
 
       if(turnOrder[currentPlayer] === 'Next Phase'){
+         if(message === 'Phase 1'){    
             nextPhase()
+           }else{
+               
+           }
       }
 
     const setUp = (numberOfPlayer) => {
     for(let i = 1; i <= numberOfPlayer; i++){
         let name = `player ${i}`
-        let cards = ['test 1', 'test 2', 'test 3', 'test 4', 'test 5']
+        let cards = [{cardName:'test 1', ability: 'Mix cards'}, {cardName:'test 2', ability: 'shuffle cards'}, {cardName:'test 3'}, {cardName:'test 4'}, {cardName:'test 5'}]
         let player = { id: i, playerName: name, cards: cards }   
           SetPlayer(player)
       }
        assignBullet(numberOfPlayer)
        assignOrder(numberOfPlayer)
     }
+
+    
+    
+    const next = (str) => {
+      actionCard(str)
+      nextPlayer()
+    }
+
+    
 
      return(
       <div>
@@ -33,8 +47,8 @@ const Game = (props) => {
                     <div>{turnOrder[currentPlayer] === player.playerName ? 'current player' : ''}</div>
                     <div className="main-cards">{player.cards.map((card, index) => {
                        return(
-                         <button key={index} className='card' onClick={() => nextPlayer()} disabled={turnOrder[currentPlayer] === player.playerName ? false : true}>
-                         <p>{card}</p>
+                         <button key={index} className='card' onClick={() => next(card.ability)} disabled={turnOrder[currentPlayer] === player.playerName ? false : true}>
+                         <p>{card.cardName}</p>
                          </button>)
                     })}</div>
                 <div className="bullet-card">{bulletPlayer === player.playerName ? 'Bullet' : 'Nope'}</div>
@@ -53,8 +67,9 @@ const mapStateToProps = state => {
         bulletPlayer: state.bulletPlayer,
         turnOrder: state.turnOrder,
         currentPlayer: state.currentPlayer,
-        message: state.message
+        message: state.message, 
+        actionCardPlayed: state.actionCardPlayed
     }
 }
 
-export default connect(mapStateToProps, { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase })(Game)
+export default connect(mapStateToProps, { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase, actionCard })(Game)

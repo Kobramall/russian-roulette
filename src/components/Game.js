@@ -4,7 +4,7 @@ import { SetPlayer, assignBullet, assignOrder, nextPlayer, nextPhase, actionCard
 
 const Game = (props) => {
 
-   const { SetPlayer, playersArray, bulletPlayer, assignBullet, assignOrder, turnOrder, currentPlayer, nextPlayer, message, nextPhase, actionCard } = props
+   const { SetPlayer, playersArray, bulletPlayer, assignBullet, assignOrder, turnOrder, currentPlayer, nextPlayer, message, nextPhase} = props
    
    let numberOfPlayer = 5
 
@@ -19,7 +19,7 @@ const Game = (props) => {
     const setUp = (numberOfPlayer) => {
     for(let i = 1; i <= numberOfPlayer; i++){
         let name = `player ${i}`
-        let cards = [{cardName:'test 1', ability: 'Mix cards'}, {cardName:'test 2', ability: 'shuffle cards'}, {cardName:'test 3'}, {cardName:'test 4'}, {cardName:'test 5'}]
+        let cards = [{cardName:'test 1', ability: 'mixBullet'}, {cardName:'test 2', ability: 'shuffle cards'}, {cardName:'test 3', ability: 'shuffle cards'}, {cardName:'test 4', ability: 'shuffle cards'}, {cardName:'test 5'}]
         let player = { id: i, playerName: name, cards: cards }   
           SetPlayer(player)
       }
@@ -27,10 +27,17 @@ const Game = (props) => {
        assignOrder(numberOfPlayer)
     }
 
+    const actionCardPlay = (str) =>{
+        if(str === 'mixBullet'){
+           assignBullet(numberOfPlayer)
+        }else{
+          return null
+        }
+    }
     
     
     const next = (str) => {
-      actionCard(str)
+      actionCardPlay(str)
       nextPlayer()
     }
 
@@ -51,7 +58,7 @@ const Game = (props) => {
                          <p>{card.cardName}</p>
                          </button>)
                     })}</div>
-                <div className="bullet-card">{bulletPlayer === player.playerName ? 'Bullet' : 'Nope'}</div>
+                <div className={"bullet-card"}>{bulletPlayer === player.playerName ? 'Bullet' : 'Nope'}</div>
                 </div>
              </div>)
            })}
@@ -68,7 +75,8 @@ const mapStateToProps = state => {
         turnOrder: state.turnOrder,
         currentPlayer: state.currentPlayer,
         message: state.message, 
-        actionCardPlayed: state.actionCardPlayed
+        actionCardPlayed: state.actionCardPlayed, 
+        bulletViewable: state.bulletViewable
     }
 }
 

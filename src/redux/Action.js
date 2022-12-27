@@ -1,9 +1,11 @@
 export const SET_PLAYER = 'SET_PLAYER'
 export const ASSIGN_BULLET = 'ASSIGN_BULLET'
 export const ASSIGN_ORDER = 'ASSIGN_ORDER'
+export const ASSIGN_ACTION_CARDS = 'ASSIGN_ACTION_CARDS'
 export const NEXT_PLAYER = 'NEXT_PLAYER'
 export const NEXT_PHASE = 'NEXT_PHASE'
 export const ACTION_CARD = 'ACTION_CARD'
+export const SET_BULLET_VIEWABLE = 'SET_BULLET_VIEWABLE'
 
 export const SetPlayer = (player) => {
     return {type: SET_PLAYER, payload: player } 
@@ -74,6 +76,10 @@ export const assignBullet = (players) => {
         return {type: ASSIGN_ORDER , payload:turnOrderObj}
       }
 
+      export const assignActionCards = (players) => {
+            return{type:ASSIGN_ACTION_CARDS, payload: players}
+      }
+
       export const nextPlayer = () => {
         return {type: NEXT_PLAYER}
       }
@@ -84,4 +90,8 @@ export const assignBullet = (players) => {
 
       export const actionCard = (str) => {
         return {type: ACTION_CARD, payload: str}
+      }
+
+      export const setBulletViewable = () => {
+        return {type: SET_BULLET_VIEWABLE}
       }

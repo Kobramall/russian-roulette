@@ -34,6 +34,14 @@
   color: black;
 }
 
+.hidden-card{
+  color: white;
+  border-style: solid;
+  border-color: black;
+  height: 15%;
+  padding: 0.3%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

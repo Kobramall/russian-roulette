@@ -1,4 +1,6 @@
 export const SET_PLAYER = 'SET_PLAYER'
+export const SET_TITLE = 'SET_TITLE'
+export const SET_DIRECTIONS = 'SET_DIRECTIONS'
 export const ASSIGN_BULLET = 'ASSIGN_BULLET'
 export const ASSIGN_ORDER = 'ASSIGN_ORDER'
 export const ASSIGN_ACTION_CARDS = 'ASSIGN_ACTION_CARDS'
@@ -10,6 +12,15 @@ export const SET_BULLET_VIEWABLE = 'SET_BULLET_VIEWABLE'
 export const SetPlayer = (player) => {
     return {type: SET_PLAYER, payload: player } 
 }
+
+export const setTitle = (str) => {
+     return {type:SET_TITLE, payload: str}
+}
+
+export const setDirections = (str) => {
+  return {type:SET_DIRECTIONS, payload: str}
+}
+
 
 export const assignBullet = (players) => {
     let number = (Math.random() * 100) 

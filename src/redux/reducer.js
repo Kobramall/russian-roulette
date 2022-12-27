@@ -1,8 +1,9 @@
-import { SET_PLAYER, ASSIGN_BULLET, ASSIGN_ORDER, NEXT_PLAYER, NEXT_PHASE, ACTION_CARD, SET_BULLET_VIEWABLE, ASSIGN_ACTION_CARDS } from './Action'
+import { SET_PLAYER, ASSIGN_BULLET, ASSIGN_ORDER, NEXT_PLAYER, NEXT_PHASE, ACTION_CARD, SET_BULLET_VIEWABLE, ASSIGN_ACTION_CARDS, SET_TITLE, SET_DIRECTIONS } from './Action'
 
 
 const initialState = {
-    message: 'Phase 1',
+    message: '',
+    directions: '',
     playersArray: [],
     actioncards: [],
     bulletPlayer:'',
@@ -17,6 +18,12 @@ export const reducer = (state = initialState, action) => {
     switch(action.type){
         case SET_PLAYER:
             return {...state, playersArray: [...state.playersArray, action.payload]}
+        
+        case SET_TITLE:
+                return {...state, message: action.payload}  
+                
+        case SET_DIRECTIONS:
+                    return {...state, directions: action.payload}        
        
         case  ASSIGN_BULLET:
               return{...state, bulletPlayer: action.payload}    

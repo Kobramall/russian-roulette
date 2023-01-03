@@ -27,8 +27,8 @@
   border-style: solid;
   border-color: black;
   height: 15%;
-  padding: 0.3%;
-  width: 3%;
+  padding: 0.4%;
+  width: 4%;
 }
 
 .bullet-card:hover{
@@ -40,8 +40,8 @@
   border-style: solid;
   border-color: black;
   height: 15%;
-  padding: 0.3%;
-  width: 3%;
+  padding: 0.4%;
+  width: 4%;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -9,6 +9,7 @@ export const NEXT_PHASE = 'NEXT_PHASE'
 export const ACTION_CARD = 'ACTION_CARD'
 export const SET_BULLET_VIEWABLE = 'SET_BULLET_VIEWABLE'
 
+
 export const SetPlayer = (player) => {
     return {type: SET_PLAYER, payload: player } 
 }
@@ -106,3 +107,5 @@ export const assignBullet = (players) => {
       export const setBulletViewable = () => {
         return {type: SET_BULLET_VIEWABLE}
       }
+
+      

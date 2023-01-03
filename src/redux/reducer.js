@@ -1,4 +1,4 @@
-import { SET_PLAYER, ASSIGN_BULLET, ASSIGN_ORDER, NEXT_PLAYER, NEXT_PHASE, ACTION_CARD, SET_BULLET_VIEWABLE, ASSIGN_ACTION_CARDS, SET_TITLE, SET_DIRECTIONS } from './Action'
+import { SET_PLAYER, ASSIGN_BULLET, ASSIGN_ORDER, NEXT_PLAYER, NEXT_PHASE, ACTION_CARD, SET_BULLET_VIEWABLE, ASSIGN_ACTION_CARDS, SET_TITLE, SET_DIRECTIONS} from './Action'
 
 
 const initialState = {
@@ -47,7 +47,8 @@ export const reducer = (state = initialState, action) => {
         case SET_BULLET_VIEWABLE:
             return{...state, bulletViewable: !state.bulletViewable}    
               
-        default :
+            
+            default :
                 return state;
         }
        
